@@ -18,7 +18,7 @@ import {Table, Button} from 'react-bootstrap';
   
   //Configura a conexão do axios com a api, incluindo o token no cabeçalho.
   const apiConection = Axios.create({
-    baseURL: 'http://localhost:8000/pessoas/',
+    baseURL: 'http://127.0.0.1:8000/?skip=0&limit=100',
     timeout: 1000,
     //headers: {'Authorization': 'Bearer '+user}
   });
@@ -57,6 +57,28 @@ import {Table, Button} from 'react-bootstrap';
           <thead>
             <tr>
               <th>id</th>
+              <th>Data da criação</th>
+              <th>Evento</th>
+              <th>Descrição</th> 
+            </tr>
+          </thead>
+          <tbody>
+            {listPessoas.map((pessoa) =>
+                <tr key={pessoa.id}>
+                  <td>{pessoa.id}</td> 
+                  <td>{pessoa.data_criacao}</td> 
+                  <td>{pessoa.nome}</td>
+                  <td>{pessoa.descricao}</td> 
+                  <td>  
+                    <Button variant="success" onClick={() => window.open(`http://localhost:3000/cadastro/${pessoa.id}/`, "_self")}>Atualizar</Button>
+                    <Button variant="danger" onClick={() => handleDelete(pessoa.id)}>Excluir</Button>
+                  </td>
+                </tr>
+            )}
+            </tbody>
+         {/* <thead>
+            <tr>
+              <th>id</th>
               <th>Nome</th>
               <th>Sexo</th>
               <th>Nascimento</th>
@@ -89,7 +111,7 @@ import {Table, Button} from 'react-bootstrap';
                   </td>
                 </tr>
             )}
-          </tbody>
+            </tbody>*/}
           </Table>
         </div>     
     </div>   
